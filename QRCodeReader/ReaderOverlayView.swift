@@ -58,21 +58,32 @@ final class ReaderOverlayView: UIView {
     layer.addSublayer(overlay)
   }
 
-  override func drawRect(rect: CGRect) {
-    var innerRect = CGRectInset(rect, 50, 50)
-    let minSize   = min(innerRect.width, innerRect.height)
-
-    if innerRect.width != minSize {
-      innerRect.origin.x   += (innerRect.width - minSize) / 2
-      innerRect.size.width = minSize
+    override func drawRect(rect: CGRect) {
+        var innerRect = CGRectInset(rect, 50, 50)
+        let minSize   = min(innerRect.width, innerRect.height)
+        
+        if innerRect.width != minSize {
+            innerRect.origin.x   += (innerRect.width - minSize) / 2
+            innerRect.size.width = minSize
+        }
+        else if innerRect.height != minSize {
+            innerRect.origin.y    += (innerRect.height - minSize) / 2
+            innerRect.size.height = minSize
+        }
+        
+        let offsetRect = CGRectOffset(innerRect, 0, 15)
+        
+        overlay.path  = UIBezierPath(roundedRect: offsetRect, cornerRadius: 5).CGPath
+        
+        let labelView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 100))
+        let label = UILabel(frame: CGRect(x: 0, y: 50, width: self.frame.size.width, height: 50))
+        labelView.backgroundColor = UIColor.blackColor()
+        label.backgroundColor = UIColor.blackColor()
+        label.textColor = UIColor.whiteColor()
+        label.font = UIFont.systemFontOfSize(18)
+        label.textAlignment = .Center
+        label.text = "Find the QR code on the package and scan"
+        labelView.addSubview(label)
+        self.addSubview(labelView)
     }
-    else if innerRect.height != minSize {
-      innerRect.origin.y    += (innerRect.height - minSize) / 2
-      innerRect.size.height = minSize
-    }
-
-    let offsetRect = CGRectOffset(innerRect, 0, 15)
-
-    overlay.path  = UIBezierPath(roundedRect: offsetRect, cornerRadius: 5).CGPath
-  }
 }
