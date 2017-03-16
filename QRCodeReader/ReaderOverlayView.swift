@@ -75,12 +75,13 @@ final class ReaderOverlayView: UIView {
         
         overlay.path  = UIBezierPath(roundedRect: offsetRect, cornerRadius: 5).CGPath
         
-        let labelView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 100))
-        let label = UILabel(frame: CGRect(x: 0, y: 50, width: self.frame.size.width, height: 50))
+        let labelView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 50))
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 50))
         labelView.backgroundColor = UIColor.blackColor()
         label.backgroundColor = UIColor.blackColor()
         label.textColor = UIColor.whiteColor()
         label.font = UIFont.systemFontOfSize(18)
+        label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .Center
         label.text = "Find the QR code on the package and scan"
         labelView.addSubview(label)
